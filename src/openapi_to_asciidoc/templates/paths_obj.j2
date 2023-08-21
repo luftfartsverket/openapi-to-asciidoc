@@ -1,0 +1,15 @@
+{%import 'util.j2' as utils%}
+
+{%if obj.paths%}
+
+{%for path, path_obj in obj.paths.items()%}
+=== {{path}}
+
+{{utils.set_temp(obj, path_obj, "path_item_obj.j2")}}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

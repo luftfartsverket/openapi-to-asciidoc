@@ -1,0 +1,25 @@
+
+{%if obj.authorizationUrl%}
+authorization url: {{obj.authorizationUrl}}
+{%endif%}
+
+{%if obj.tokenUrl%}
+token url: {{obj.tokenUrl}}
+{%endif%}
+
+{%if obj.refreshUrl%}
+refresh url: {{obj.refreshUrl}}
+{%endif%}
+
+{%if obj.scopes%}
+.scopes
+
+{%for key, value in obj.scopes.items()%}
+{{key}}:{{value}}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

@@ -1,0 +1,44 @@
+{%import 'util.j2' as utils%}
+
+
+{%if obj.ref%}
+ref: {{utils.format_ref(obj.ref)}}
+{%endif%}
+
+{%if obj.description%}
+description: {{obj.description}}
+{%endif%}
+
+{% if obj.headers %}
+_Headers_
+
+{%for header_name, obj in obj.headers.items()%}
+.{{header_name}}
+
+{%include "header_obj.j2"%}
+{%endfor%}
+{% endif %}
+
+{% if obj.content %}
+_Content_
+
+{%for content_name, obj in obj.content.items()%}
+.{{content_name}}
+
+{%include "media_type_obj.j2"%}
+{%endfor%}
+{% endif %}
+
+{% if obj.links %}
+_Links_
+
+{%for link_name, obj in obj.links.items()%}
+.{{link_name}}.
+
+{%include "link_obj.j2"%}
+{%endfor%}
+{% endif %}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

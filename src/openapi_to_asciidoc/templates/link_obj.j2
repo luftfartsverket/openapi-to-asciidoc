@@ -1,0 +1,46 @@
+{%import 'util.j2' as utils%}
+
+
+{%if obj.ref%}
+ref: {{utils.format_ref(obj.ref)}}
+{%endif%}
+
+{%if obj.operationRef%}
+operation reference: {{obj.operationRef}}
+{%endif%}
+
+{%if obj.operationId%}
+operation id: {{obj.operationId}}
+{%endif%}
+
+{%if obj.parameters%}
+.link parameters
+|===
+|parameter|expression
+{%for key, value in obj.parameters.items()%}
+|{{key}}|{{value}}
+{%endfor%}
+
+|===
+{%endif%}
+
+{%if obj.requestBody%}
+.link request body
+
+{#This is not properly implemented. Needs examples to complete. #}
+{{obj.requestBody}}
+
+{%endif%}
+
+{%if obj.description%}
+description: {{obj.description}}
+{%endif%}
+
+{%if obj.server%}
+{{utils.set_temp(obj, obj.server, "server_obj.j2")}}
+{%endif%}
+
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

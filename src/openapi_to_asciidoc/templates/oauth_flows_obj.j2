@@ -1,0 +1,29 @@
+{%import 'util.j2' as utils%}
+
+{%if obj.implicit%}
+
+{{utils.set_temp(obj, obj.implicit, "oauth_flow_obj.j2")}}
+
+{%endif%}
+
+{%if obj.password%}
+
+{{utils.set_temp(obj, obj.password, "oauth_flow_obj.j2")}}
+
+{%endif%}
+
+{%if obj.clientCredentials%}
+
+{{utils.set_temp(obj, obj.clientCredentials, "oauth_flow_obj.j2")}}
+
+{%endif%}
+
+{%if obj.authorizationCode%}
+
+{{utils.set_temp(obj, obj.authorizationCode, "oauth_flow_obj.j2")}}
+
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

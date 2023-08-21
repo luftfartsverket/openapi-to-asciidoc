@@ -1,0 +1,20 @@
+=== Server information
+
+{% if obj.description%}
+description: {{obj.description}}
+{%endif%}
+
+{% if obj.url%}
+url: {{obj.url}}
+{%endif%}
+
+{% if obj.variables%}
+{%for obj_name, obj in obj.variables.items()%}
+.{{obj_name}}
+{% include 'server_variable_obj.j2' %}
+{%endfor%}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

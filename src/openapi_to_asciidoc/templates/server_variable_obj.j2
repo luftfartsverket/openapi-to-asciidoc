@@ -1,0 +1,15 @@
+|===
+{%if obj.enum%}
+|enum:  |{{obj.enum}}
+{%endif%}
+{%if obj.default%}
+|default: |{{obj.default}}
+{%endif%}
+{%if obj.description%}
+|description: |{{obj.description}}
+{%endif%}
+{%if obj.x_variables%}
+|extension: |{%include 'specification_extension.j2'%}
+{%endif%}
+|===
+

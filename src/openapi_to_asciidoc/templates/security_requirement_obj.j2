@@ -1,0 +1,11 @@
+
+{%if obj.securitySchemeName%}
+.Security requirement
+
+{{obj.securitySchemeName}} :
+|===
+{%for type in obj.securitySchemeType%}
+|{{type}}
+{%endfor%}
+|===
+{%endif%}

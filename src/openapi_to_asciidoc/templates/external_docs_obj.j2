@@ -1,0 +1,11 @@
+{%if obj.description%}
+_description_: {{obj.description}}
+{%endif%}
+
+{%if obj.url%}
+_url_: {{obj.url}}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

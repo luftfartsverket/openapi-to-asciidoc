@@ -1,0 +1,85 @@
+{%import 'util.j2' as utils%}
+:sectnums:
+:sectnumlevels: 4
+:toc:
+:toclevels: 3
+
+= Open API specification
+
+== API info
+
+open api version: {{obj.open_api}}
+
+schema dialect: {{obj.jsonSchemaDialect}}
+
+{%if obj.info%}
+== Info
+
+{{utils.set_temp(obj, obj.info, "info_obj.j2")}}
+
+{%endif%}
+
+{%if obj.servers%}
+== Servers
+
+{%for obj in obj.servers%}
+    {%include "server_obj.j2"%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.paths%}
+== Paths
+
+{{utils.set_temp(obj, obj.paths, "paths_obj.j2")}}
+
+{%endif%}
+
+{%if obj.webhooks%}
+== Webhooks
+
+{%for webhook_name, obj in obj.webhooks.items()%}
+
+=== {{webhook_name}}
+
+{%include "path_item_obj.j2"%}
+{%endfor%}
+
+{%endif%}
+
+{%if obj.components%}
+== Components
+
+{{utils.set_temp(obj, obj.components, "components_obj.j2")}}
+
+{%endif%}
+
+{%if obj.security%}
+== Security
+
+{%for obj in obj.security%}
+{%include "security_requirement_obj.j2"%}
+{%endfor%}
+
+{%endif%}
+
+{%if obj.tags%}
+== Tags
+
+{%for obj in obj.tags%}
+{%include "tag_obj.j2"%}
+{%endfor%}
+
+{%endif%}
+
+{%if obj.external_docs%}
+== External docs
+
+{{utils.set_temp(obj, obj.external_docs, "external_docs_obj.j2")}}
+
+{%endif%}
+
+{%if obj.x_variables%}
+== Specification extensions: 
+{%include 'specification_extension.j2'%}
+{%endif%}

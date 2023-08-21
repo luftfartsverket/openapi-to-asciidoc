@@ -1,0 +1,34 @@
+{%import 'util.j2' as utils%}
+
+.encoding
+
+
+{%if obj.ref%}
+ref: {{utils.format_ref(obj.ref)}}
+{%endif%}
+
+{%if obj.contentType%}
+content type: {{obj.contentType}}
+{%endif%}
+
+{%if obj.headers%}
+{{utils.set_temp(obj, obj.headers, "header_obj.j2")}}
+{%endif%}
+
+{%if obj.style%}
+style: {{obj.style}}
+{%endif%}
+
+
+{%if obj.explode%}
+explode: {{obj.explode}}
+{%endif%}
+
+
+{%if obj.allowReserved%}
+allow reserved: {{obj.allowReserved}}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}
