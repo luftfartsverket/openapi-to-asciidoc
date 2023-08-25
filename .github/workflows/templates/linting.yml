@@ -1,15 +1,5 @@
 name: Linting (black and flake8)
 
-on:
-  push:
-    branches-ignore:
-      - main
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
-
 jobs:
   linting:
     runs-on: ubuntu-latest
