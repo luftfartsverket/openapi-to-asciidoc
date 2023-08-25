@@ -9,10 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Reuse build job
-        uses: ./github/workflows/templates/build.yml
+    uses: ./github/workflows/templates/build.yml
 
   publish-to-test-pypi:
     runs-on: ubuntu-latest
