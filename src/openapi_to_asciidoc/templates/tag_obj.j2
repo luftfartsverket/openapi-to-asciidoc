@@ -1,0 +1,18 @@
+{%import 'util.j2' as utils%}
+.Tag
+
+{%if obj.name%}
+name: {{obj.name}}
+{%endif%}
+
+{%if obj.description%}
+description: {{obj.description}}
+{%endif%}
+
+{%if obj.external_docs%}
+{{utils.set_temp(obj, obj.external_docs, "external_docs_obj.j2")}}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

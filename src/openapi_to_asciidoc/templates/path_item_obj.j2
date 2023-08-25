@@ -1,0 +1,89 @@
+{%import 'util.j2' as utils%}
+
+{%if obj.get%}
+==== get
+
+{{utils.set_temp(obj, obj.get, "operation_obj.j2")}}
+{%endif%}
+
+
+{%if obj.put%}
+==== put
+
+{{utils.set_temp(obj, obj.put, "operation_obj.j2")}}
+{%endif%}
+
+
+{%if obj.post%}
+==== post
+
+{{utils.set_temp(obj, obj.post, "operation_obj.j2")}}
+{%endif%}
+
+
+{%if obj.delete%}
+==== delete
+
+{{utils.set_temp(obj, obj.delete, "operation_obj.j2")}}
+{%endif%}
+
+
+{%if obj.options%}
+==== options
+
+{{utils.set_temp(obj, obj.options, "operation_obj.j2")}}
+{%endif%}
+
+
+{%if obj.head%}
+==== head
+
+{{utils.set_temp(obj, obj.head, "operation_obj.j2")}}
+{%endif%}
+
+
+{%if obj.patch%}
+==== patch
+
+{{utils.set_temp(obj, obj.patch, "operation_obj.j2")}}
+{%endif%}
+
+
+{%if obj.trace%}
+==== trace
+
+{{utils.set_temp(obj, obj.trace, "operation_obj.j2")}}
+{%endif%}
+
+
+{%if obj.servers%}
+==== Servers
+
+{{utils.set_temp(obj, obj.servers, "server_obj.j2")}}
+{%endif%}
+
+
+{%if obj.parameters%}
+==== parameters
+
+{%for obj in obj.parameters%}
+
+{%include 'parameter_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+
+{%if obj.ref%}
+
+==== reference
+
+ref: {{utils.format_ref(obj.ref)}}
+{%endif%}
+
+
+{%if obj.x_variables%}
+==== Specification extension
+{%include 'specification_extension.j2'%}
+{%endif%}
+

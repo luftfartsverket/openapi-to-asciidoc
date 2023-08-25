@@ -1,0 +1,20 @@
+.discriminator
+
+{%if obj.property_name%}
+property name: {{obj.property_name}}
+{%endif%}
+
+
+{%if obj.mapping%}
+|===
+|value|schema
+{%for val, schema_mapping in obj.mapping.items()%}
+|{{val}}|{{schema_mapping}}
+{%endfor%}
+|===
+
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

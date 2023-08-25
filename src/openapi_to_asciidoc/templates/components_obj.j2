@@ -1,0 +1,117 @@
+
+{%if obj.paths%}
+=== Paths
+
+{%for path_name, obj in obj.paths.items()%}
+==== {{path_name}} [[_components_paths_{{path_name}}]]
+
+{%include 'path_item_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+
+{%if obj.schemas%}
+=== Schemas
+
+{%for schema_name, obj in obj.schemas.items()%}
+==== {{schema_name}} [[_components_schemas_{{schema_name}}]]
+
+{%include 'schema_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+
+{%if obj.responses%}
+=== Responses
+
+{%for response_name, obj in obj.responses.items()%}
+==== {{response_name}} [[_components_responses_{{response_name}}]]
+
+{%include 'response_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.parameters%}
+=== Parameters
+
+{%for parameter_name, obj in obj.parameters.items()%}
+==== {{parameter_name}} [[_components_parameters_{{parameter_name}}]]
+
+{%include 'parameter_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.examples%}
+=== Examples
+
+{%for example_name, obj in obj.examples.items()%}
+==== {{example_name}} [[_components_examples_{{example_name}}]]
+
+{%include 'example_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.requestBodies%}
+=== Request bodies
+
+{%for request_body_name, obj in obj.requestBodies.items()%}
+==== {{request_body_name}} [[_components_request_bodies_{{request_body_name}}]]
+
+{%include 'request_body_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.headers%}
+=== Headers
+
+{%for headers_name, obj in obj.headers.items()%}
+==== {{headers_name}} [[_components_headers_{{header_name}}]]
+
+{%include 'header_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.securitySchemes%}
+=== Security schemes
+
+{%for security_scheme_name, obj in obj.securitySchemes.items()%}
+==== {{security_scheme_name}} [[_components_security_schemes_{{security_scheme_name}}]]
+
+{%include 'security_scheme_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.links%}
+=== Links
+
+{%for link_name, obj in obj.links.items()%}
+==== {{link_name}} [[_components_links_{{link_name}}]]
+
+{%include 'link_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.callbacks%}
+=== Callbacks
+
+{%for callback_name, obj in obj.callbacks.items()%}
+==== {{callback_name}} [[_components_callbacks_{{callback_name}}]]
+
+{%include 'callback_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+{%if obj.x_variables%}
+=== Specification extensions
+{%include 'specification_extension.j2'%}
+{%endif%}

@@ -1,0 +1,17 @@
+=== License
+
+{%if obj.name%}
+name: {{obj.name}}
+{%endif%}
+
+{%if obj.url%}
+url: {{obj.url}}
+{%endif%}
+
+{%if obj.identifier%}
+identifier: {{obj.identifier}}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

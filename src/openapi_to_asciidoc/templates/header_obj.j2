@@ -1,0 +1,42 @@
+{%import 'util.j2' as utils%}
+
+{%if obj.ref%}
+ref: {{utils.format_ref(obj.ref)}}
+{%endif%}
+
+{%if obj.description%}
+description: {{obj.description}}
+{%endif%}
+
+{%if obj.required%}
+required: {{obj.required}}
+{%endif%}
+
+{%if obj.deprecated%}
+deprecated: {{obj.deprecated}}
+{%endif%}
+
+{%if obj.style%}
+style: {{obj.style}}
+{%endif%}
+
+{%if obj.schema_object%}
+
+{%if obj.examples%}
+{%for example, obj in obj.examples.items()%}
+
+{%include 'example_obj.j2'%}
+
+{%endfor%}
+{%endif%}
+
+
+{%endif%}
+
+{%if obj.content%}
+
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}
