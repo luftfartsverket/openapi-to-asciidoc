@@ -10,8 +10,6 @@ jobs:
   build:
     needs: linting
     runs-on: ubuntu-latest
-    # Specifying a GitHub environment is optional, but strongly encouraged
-    #environment: production
     steps:
       - name: Check out source repository
         uses: actions/checkout@v3
