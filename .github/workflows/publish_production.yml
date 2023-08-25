@@ -16,7 +16,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     # Specifying a GitHub environment is optional, but strongly encouraged
-    environment: production
+    # environment: production
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
