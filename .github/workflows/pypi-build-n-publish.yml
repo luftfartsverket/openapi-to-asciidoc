@@ -23,11 +23,13 @@ jobs:
       - name: Run flake8 linter
         run: hatch run lint:flake8
       - name: Run unit and integrations tests
-        run: hatch run test:pytest --cov=maven_artifact --cov-report=xml --cov-report=html
+        run: hatch run test:pytest --cov=openapi-to-asciidoc --cov-report=xml --cov-report=html
 
   build-and-publish:
     needs: linting
     runs-on: ubuntu-latest
+    # Specifying a GitHub environment is optional, but strongly encouraged
+    environment: release
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
@@ -42,29 +44,16 @@ jobs:
       - name: Install dependencies
         run: |
           pip install hatch
-        env:
-          GNUPGHOME: ${{ runner.workspace }}/.gnupg
       - name: Build package
         run: hatch build
-      # ! gpg steps are probably not needed since gh-action-pypi-publish is used
-      # - name: Import GPG key
-      #   run: echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import --batch --passphrase "${{ secrets.GPG_PASSPHRASE }}"
-      # - name: Sign package
-      #   run: |
-      #     gpg --batch --yes --detach-sign --armor dist/*
-      #     gpg --batch --yes --print-md SHA256 dist/* > dist/*.sha256
       - name: Publish distribution 📦 to Test PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           repository-url: https://test.pypi.org/legacy/
           sign-artifacts: true
           skip-existing: true
-          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-      - name: Publish distribution 📦 to PyPI
-        if: startsWith(github.ref, 'refs/tags')
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          sign-artifacts: true
-          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+      # - name: Publish distribution 📦 to PyPI
+      #   if: startsWith(github.ref, 'refs/tags')
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   with:
+      #     sign-artifacts: true
