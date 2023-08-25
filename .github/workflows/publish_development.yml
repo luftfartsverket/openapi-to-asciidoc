@@ -55,7 +55,7 @@ jobs:
     # Specifying a GitHub environment is optional, but strongly encouraged
     environment:
       name: development
-      url: https://test.pypi.org/p/openapi-to-asciidoc
+      url: https://pypi.org/p/openapi-to-asciidoc
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
