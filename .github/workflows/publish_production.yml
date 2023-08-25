@@ -2,8 +2,8 @@ name: Build and publish to PyPI
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
     tags:
       - "v*.*.*"
 
@@ -15,8 +15,9 @@ jobs:
   publish-to-test-pypi:
     needs: build
     runs-on: ubuntu-latest
-    # Specifying a GitHub environment is optional, but strongly encouraged
-    # environment: production
+    environment:
+      name: production
+      url: https://pypi.org/p/openapi-to-asciidoc
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
