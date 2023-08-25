@@ -1,0 +1,21 @@
+.Contact information
+****
+
+{%if obj.email%}
+email: {{obj.email}}
+{%endif%}
+
+{%if obj.name%}
+name: {{obj.name}}
+{%endif%}
+
+{%if obj.url%}
+url: {{obj.url}}
+{%endif%}
+
+{%if obj.x_variables%}
+_extensions:_ 
+{%include 'specification_extension.j2'%}
+{%endif%}
+
+****

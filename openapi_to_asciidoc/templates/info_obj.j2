@@ -1,0 +1,30 @@
+{%import 'util.j2' as utils%}
+=== {{ obj.title }}
+
+{% if obj.version %}
+Document version: {{ obj.version }}
+{% endif %}
+
+{% if obj.contact %}
+{{utils.set_temp(obj, obj.contact, "contact_obj.j2")}}
+{% endif %}
+
+{% if obj.description %}
+Description: {{ obj.description }}
+{% endif %}
+
+{% if obj.summary %}
+Summary: {{ obj.summary }}
+{% endif %}
+
+{% if obj.termsOfService %}
+`Terms:` {{ obj.termsOfService }}
+{% endif %}
+
+{% if obj.license %}
+{{utils.set_temp(obj, obj.license, "license_obj.j2")}}
+{% endif %}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

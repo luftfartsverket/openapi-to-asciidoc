@@ -1,0 +1,11 @@
+{#this macro temporarily sets another object as 'obj' in the jinja hierachy in order to render the object that's in context.
+This is primarily used when an object has a instance variable which is a class in it self #}
+{%macro set_temp(original_obj, temp, template)%}
+{%set obj = temp%}
+   {% include template %}
+{%set obj = original_obj%}
+{%endmacro%}
+
+{%macro format_ref(reference)%}
+<<{{reference|replace("#", "")|replace("/", "_")}}, {{reference}}>>
+{%endmacro%}

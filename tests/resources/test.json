@@ -1,0 +1,396 @@
+        {
+            "openapi": "3.1.0",
+            "info": {
+                "title": "some title",
+                "version": "1.0.0",
+                "termsOfService": "Yes, we have those!",
+                "contact": {
+                    "name": "Bengt",
+                    "url": "http://some.adress.com",
+                    "email": "bengt@something.com",
+                    "x-contact": "very much a test field"
+                },
+                "x-test": "HUURA",
+                "license": {
+                    "name": "Twitter Developer Agreement and Policy",
+                    "url": "https://developer.twitter.com/en/developer-terms/agreement-and-policy.html"
+                }
+            },
+            "servers": [
+                {
+                    "url": "https://{username}.gigantic-server.com:{port}/{basePath}",
+                    "description": "The production API server",
+                    "x-factor": {
+                        "test": [
+                            "One",
+                            "Two"
+                        ]
+                    },
+                    "variables": {
+                        "username": {
+                            "default": "demo",
+                            "description": "this value is assigned by the service provider, in this example `gigantic-server.com`"
+                        },
+                        "port": {
+                            "enum": [
+                                "8443",
+                                "443"
+                            ],
+                            "default": "8443"
+                        },
+                        "basePath": {
+                            "default": "v2"
+                        },
+                        "on_error": {
+                            "x-test": "hello",
+                            "default": "8000",
+                            "description": "Some value"
+                        }
+                    }
+                }
+            ],
+            "jsonSchemaDialect": "Yes",
+            "paths": {
+                "/labs/3/users/{id}": {
+                    "x-factrss": "You know it",
+                    "get": {
+                        "tags": [
+                            "Users"
+                        ],
+                        "summary": "Return details for the specified users",
+                        "operationId": "updatePetWithForm",
+                        "description": "The production API server",
+                        "deprecated": "False",
+                        "x-facs": "Some cool facts!"
+                    },
+                    "put": {
+                        "tags": [
+                            "Other Users"
+                        ],
+                        "summary": "Puts details for the specified users"
+                    }
+                },
+                "/labs/2/users/{id}": {
+                    "get": {
+                        "tags": [
+                            "pet"
+                        ],
+                        "summary": "Updates a pet in the store with form data",
+                        "operationId": "updatePetWithForm",
+                        "parameters": [
+                            {
+                                "name": "petId",
+                                "in": "path",
+                                "description": "ID of pet that needs to be updated",
+                                "required": true,
+                                "deprecated": true,
+                                "schema": {
+                                    "type": "string",
+                                    "xml": {
+                                        "namespace": "https://example.com/schema/sample",
+                                        "prefix": "sample"
+                                    }
+                                }
+                            },
+                            {
+                                "$ref": "#/components/parameters/UserExpansionsParameter"
+                            }
+                        ],
+                        "requestBody": {
+                            "content": {
+                                "application/x-www-form-urlencoded": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "description": "Updated name of the pet",
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "description": "Updated status of the pet",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "status"
+                                        ]
+                                    },
+                                    "examples": {
+                                        "cool": {
+                                            "summary": "A cool value",
+                                            "value": {
+                                                "bar": "bazz",
+                                                "foo": "bar"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "responses": {
+                            "200": {
+                                "description": "Pet updated.",
+                                "content": {
+                                    "application/json": {},
+                                    "application/xml": {}
+                                }
+                            },
+                            "405": {
+                                "description": "Method Not Allowed",
+                                "content": {
+                                    "application/json": {},
+                                    "application/xml": {}
+                                }
+                            }
+                        },
+                        "security": [
+                            {
+                                "petstore_auth": [
+                                    "write:pets",
+                                    "read:pets"
+                                ]
+                            }
+                        ],
+                        "callbacks": {
+                            "onData": {
+                                "{$request.query.callbackUrl}/data": {
+                                    "post": {
+                                        "requestBody": {
+                                            "description": "subscription payload",
+                                            "content": {
+                                                "application/json": {
+                                                    "schema": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "timestamp": {
+                                                                "type": "string",
+                                                                "format": "date-time"
+                                                            },
+                                                            "userData": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "responses": {
+                                            "202": {
+                                                "description": "Your server implementation should return this HTTP status code\nif the data was received successfully\n"
+                                            },
+                                            "204": {
+                                                "description": "Your server should return this HTTP status code if no longer interested\nin further updates\n"
+                                            }
+                                        }
+                                    }
+                                },
+                                "$ref": "#/components/schemas/Pet"
+                            }
+                        }
+                    }
+                },
+                "/pets": {
+                    "get": {
+                        "description": "Returns all pets from the system that the user has access to",
+                        "responses": {
+                            "200": {
+                                "description": "A list of pets.",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Pet"
+                                            }
+                                        }
+                                    }
+                                },
+                                "links": {
+                                    "adress": {
+                                        "operationId": "getUserAdress",
+                                        "parameters": {
+                                            "userId": "$request.path.id"
+                                        }
+                                    },
+                                    "pullRequestMerge": {
+                                        "$ref": "#/components/links/PullRequestMerge"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "description": "ID of pet to use",
+                            "required": true,
+                            "deprecated": false,
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "style": "simple"
+                        }
+                    ]
+                }
+            },
+            "components": {
+                "schemas": {
+                    "Pet": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/NewPet"
+                            },
+                            {
+                                "type": "object",
+                                "required": [
+                                    "id"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "format": "int64"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "NewPet": {
+                        "type": "object",
+                        "required": [
+                            "name"
+                        ],
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "tag": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "GeneralError": {
+                        "type": "object",
+                        "required": [
+                            "code",
+                            "message"
+                        ],
+                        "properties": {
+                            "code": {
+                                "type": "integer",
+                                "format": "int32"
+                            },
+                            "message": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "parameters": {
+                    "skipParam": {
+                        "name": "skip",
+                        "in": "query",
+                        "description": "number of items to skip",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                },
+                "securitySchemes": {
+                    "api_key": {
+                        "type": "apiKey",
+                        "name": "api_key",
+                        "in": "header"
+                    },
+                    "petstore_auth": {
+                        "type": "oauth2",
+                        "flows": {
+                            "implicit": {
+                                "authorizationUrl": "https://example.org/api/oauth/dialog",
+                                "scopes": {
+                                    "write:pets": "modify pets in your account",
+                                    "read:pets": "read your pets"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "NotFound": {
+                        "description": "Entity not found."
+                    },
+                    "IllegalInput": {
+                        "description": "Illegal input for operation."
+                    },
+                    "GeneralError": {
+                        "description": "General Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GeneralError"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "externalDocs": {
+                "description": "Find out more about Swagger",
+                "url": "http://swagger.io"
+            },
+            "webhooks": {
+                "newPet": {
+                    "post": {
+                        "requestBody": {
+                            "description": "Information about a new pet in the system",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/Pet"
+                                    }
+                                }
+                            }
+                        },
+                        "responses": {
+                            "200": {
+                                "description": "Return a 200 status to indicate that the data was received successfully"
+                            }
+                        }
+                    }
+                }
+            },
+            "security": [
+                {},
+                {
+                    "petstore_auth": [
+                        "write:pets",
+                        "read:pets"
+                    ]
+                },
+                {
+                    "petstore_pass": [
+                        "write:petz",
+                        "read:petz"
+                    ]
+                }
+            ],
+            "tags": [
+                {
+                    "name": "pet",
+                    "description": "Pets operations"
+                },
+                {
+                    "name": "pet2",
+                    "description": "Pets operations",
+                    "externalDocs": {
+                        "description": "Find out more about Swagger",
+                        "url": "http://swagger.io"
+                    }
+                }
+            ]
+        }

@@ -1,0 +1,10 @@
+{%import 'util.j2' as utils%}
+
+{% if obj.ref %}
+ref: {{utils.format_ref(obj.ref)}}
+{% endif %}
+
+{% if obj.expression %}
+{{obj.data_key}}
+{{utils.set_temp(obj, obj.expression, "path_item_obj.j2")}}
+{% endif %}

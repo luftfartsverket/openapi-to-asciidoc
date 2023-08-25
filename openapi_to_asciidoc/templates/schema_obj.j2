@@ -1,0 +1,97 @@
+{%import 'util.j2' as utils%}
+
+{%if obj.ref%}
+ref: {{utils.format_ref(obj.ref)}}
+{%endif%}
+
+{%if obj.type%}
+type: {{obj.type}}
+{%endif%}
+
+{%if obj.format%}
+format: {{obj.format}}
+{%endif%}
+
+{%if obj.default%}
+default: {{obj.default}}
+{%endif%}
+
+{%if obj.description%}
+description: {{obj.description}}
+{%endif%}
+
+{%if obj.required%}
+Required: {{obj.required}}
+{%endif%}
+
+{%if obj.items%}
+
+{{utils.set_temp(obj, obj.items, "schema_obj.j2")}}
+
+{%endif%}
+
+{%if obj.not_%}
+
+{{utils.set_temp(obj, obj.not_, "schema_obj.j2")}}
+
+{%endif%}
+
+{%if obj.allOf%}
+allOf:
+
+{%for obj in obj.allOf%}
+****
+{%include 'schema_obj.j2'%}
+****
+
+{%endfor%}
+{%endif%}
+
+{%if obj.anyOf%}
+{%for obj in obj.anyOf%}
+****
+{%include 'schema_obj.j2'%}
+****
+{%endfor%}
+{%endif%}
+
+{%if obj.oneOf%}
+{%for obj in obj.oneOf%}
+
+****
+{%include 'schema_obj.j2'%}
+****
+{%endfor%}
+{%endif%}
+
+{%if obj.properties%}
+_Schema properties_
+
+|===
+|Property|Type
+{%for obj_name, obj in obj.properties.items()%}
+|*{{obj_name}}*|
+{%include 'schema_obj.j2'%}
+{%endfor%}
+|===
+{%endif%}
+
+{%if obj.additionalProperties%}
+{{utils.set_temp(obj, obj.additionalProperties, "schema_obj.j2")}}
+{%endif%}
+
+{%if obj.externalDocs%}
+{{utils.set_temp(obj, obj.externalDocs, "external_docs_obj.j2")}}
+{%endif%}
+
+{%if obj.xml%}
+{{utils.set_temp(obj, obj.xml, "xml_obj.j2")}}
+{%endif%}
+
+{%if obj.discriminator%}
+{{utils.set_temp(obj, obj.discriminator, "discriminator_obj.j2")}}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

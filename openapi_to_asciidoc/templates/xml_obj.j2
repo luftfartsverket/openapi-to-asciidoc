@@ -1,0 +1,25 @@
+.xml
+
+{%if obj.name%}
+name: {{obj.name}}
+{%endif%}
+
+{%if obj.namespace%}
+namespace: {{obj.namespace}}
+{%endif%}
+
+{%if obj.prefix%}
+prefix: {{obj.prefix}}
+{%endif%}
+
+{%if obj.attribute%}
+attribute: {{obj.attribute or false}}
+{%endif%}
+
+{%if obj.wrapped%}
+wrapped: {{obj.wrapped or false}}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

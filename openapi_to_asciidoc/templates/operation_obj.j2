@@ -1,0 +1,70 @@
+{%import 'util.j2' as utils%}
+
+{%if obj.tags%}
+
+{%for tag in obj.tags%}
+
+[big]#Tags#
+
+{{tag}}
+
+{%endfor%}
+{%endif%}
+
+{% if obj.summary %}
+_summary:_ {{ obj.summary }}
+{% endif %}
+
+{% if obj.description %}
+_description:_ {{ obj.description }} +
+{% endif %}
+
+{% if obj.externalDocs %}
+{{utils.set_temp(obj, obj.externalDocs, "external_docs_obj.j2")}}
+{% endif %}
+
+{% if obj.operationId %}
+_operation id:_ {{obj.operationId}}
+{% endif %}
+
+{% if obj.parameters %}
+
+.Parameters
+
+{%for obj in obj.parameters-%}
+
+{% include 'parameter_obj.j2' -%}
+
+{%endfor%}
+{% endif %}
+
+{% if obj.requestBody %}
+
+{{utils.set_temp(obj, obj.requestBody, "request_body_obj.j2")}}
+{% endif %}
+
+{% if obj.responses %}
+
+.Responses
+
+{%for response, obj in obj.responses.items()%}
+_{{response}}_
+{%include 'response_obj.j2'%}
+
+{%endfor%}
+{% endif %}
+
+{% if obj.callbacks %}
+.Callbacks
+{%for callback, obj in obj.callbacks.items()%}
+{{callback}}
+
+{%include 'callback_obj.j2'%}
+
+{%endfor%}
+{% endif %}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}
+

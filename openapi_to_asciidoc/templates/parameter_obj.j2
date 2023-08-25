@@ -1,0 +1,29 @@
+{%import 'util.j2' as utils%}
+
+{%if not obj.ref-%}
+{# if the object has a ref element, ignore table #}
+|===
+|name|location|description|required|deprecated
+|{{ obj.name }}
+|{{ obj.in_ }}
+|{{ obj.description }}
+|{{ obj.required }}
+|{{ obj.deprecated or false }} {# defaults to false #}
+
+|===
+{%else%}
+_Parameter reference_
+
+ref: {{utils.format_ref(obj.ref)}}
+
+{%endif%}
+
+{%if obj.schema_object%}
+_Schema_
+
+{{utils.set_temp(obj, obj.schema_object, "schema_obj.j2")}}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}

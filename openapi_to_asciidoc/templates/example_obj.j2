@@ -1,0 +1,35 @@
+. example
+
+{%if obj.ref%}
+ref: {{utils.format_ref(obj.ref)}}
+{%endif%}
+
+{%if obj.description%}
+description: {{obj.description}}
+{%endif%}
+
+{%if obj.summary%}
+summary: {{obj.summary}}
+{%endif%}
+
+{%if obj.value%}
+.Example value(s)
+{%if obj.value is mapping%}
+|===
+|*Key*|*Value*
+{%for key, value in obj.value.items()%}
+|{{key}}|{{value}}
+{%endfor%}
+|===
+{%else%}
+{{obj.value}}
+{%endif%}
+{%endif%}
+
+{%if obj.externalValue%}
+externalValue: {{obj.externalValue}}
+{%endif%}
+
+{%if obj.x_variables%}
+extensions: {%include 'specification_extension.j2'%}
+{%endif%}
