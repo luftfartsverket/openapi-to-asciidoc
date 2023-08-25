@@ -1,4 +1,6 @@
 name: Linting (black and flake8)
+on:
+  workflow_call:
 
 jobs:
   linting:

@@ -1,4 +1,6 @@
 name: Build PyPI
+on:
+  workflow_call:
 
 jobs:
   linting:
