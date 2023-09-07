@@ -5,41 +5,27 @@
 
 import argparse
 import json
-import sys
 
 from openapi_to_asciidoc.objects import OpenApi, OpenApiSchema
 
 
 def get_arguments():
-    """
-    Parses command line arguments
-    """
-
-    usage = """
-    Usage:
-
-    Use stdin and stdout:
-      cat openapi.json | openapi_to_asciidoc.py -t openapi.j2
-
-    Use specific files for input and output:
-      openapi_to_asciidoc.py -j openapi.json -t openapi.j2 -o openapi.adoc
-    """
-    parser = argparse.ArgumentParser(epilog=usage, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter)
 
     parser.add_argument(
         "-j",
         "--json",
-        help="OpenAPI JSON Specification File (default: stdin)",
+        help="OpenAPI JSON Specification File (default: openapi.json)",
         type=argparse.FileType("r"),
-        default=sys.stdin,
+        default="openapi.json",
     )
     parser.add_argument(
         "-o",
         "--output",
         nargs="?",
-        help="Where to output result (default: stdout)",
+        help="Where to output result (default: openapi.adoc)",
         type=argparse.FileType("w"),
-        default=sys.stdout,
+        default="openapi.adoc",
     )
 
     return parser.parse_args()
