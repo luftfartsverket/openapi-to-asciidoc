@@ -12,7 +12,7 @@ name = "openapi-to-asciidoc"
 dynamic = ["version"]
 authors = [{ name = "LFV", email = "info@lfv.se" }]
 
-description = "A tool used to convert OpenAPI 3.0 specifications to AsciiDoc"
+description = "A tool used to convert OpenAPI 3.1 specifications to AsciiDoc"
 readme = "README.md"
 
 requires-python = ">=3.10"
@@ -46,7 +46,7 @@ dependencies = [
 ]
 
 [project.scripts]
-o2i = "openapi_to_asciidoc.convert:main"
+o2a = "openapi_to_asciidoc.convert:main"
 openapi-to-asciidoc = "openapi_to_asciidoc.convert:main"
 
 [tool.hatch.version]
