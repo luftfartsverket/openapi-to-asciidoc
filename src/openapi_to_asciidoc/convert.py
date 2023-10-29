@@ -5,6 +5,7 @@
 
 import argparse
 import json
+from importlib.metadata import version
 
 from openapi_to_asciidoc.objects import OpenApi, OpenApiSchema
 
@@ -12,6 +13,12 @@ from openapi_to_asciidoc.objects import OpenApi, OpenApiSchema
 def get_arguments():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter)
 
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version=version("maven-artifact"),
+    )
     parser.add_argument(
         "-j",
         "--json",
