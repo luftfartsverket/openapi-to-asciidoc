@@ -1,14 +1,7 @@
 name: Build and publish to Test PyPI
 
 on:
-  push:
-    branches-ignore:
-      - main
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     # Specifying a GitHub environment is optional, but strongly encouraged
     environment:
-      name: development
+      name: test
       url: https://test.pypi.org/p/openapi-to-asciidoc
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
