@@ -1,4 +1,4 @@
-name: Linting (black and flake8)
+name: Lint
 on:
   workflow_call:
 
