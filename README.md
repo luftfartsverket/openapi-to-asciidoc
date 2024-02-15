@@ -1,5 +1,5 @@
 
-[![Commit Activity](https://img.shields.io/github/commit-activity/m/Luftfartsverket/ropenapi-to-asciidoc?label=commits&style=for-the-badge)](https://github.com/Luftfartsverket/openapi-to-asciidoc/pulse)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/Luftfartsverket/openapi-to-asciidoc?label=commits&style=for-the-badge)](https://github.com/Luftfartsverket/openapi-to-asciidoc/pulse)
 [![GitHub Issues](https://img.shields.io/github/issues/Luftfartsverket/openapi-to-asciidoc?style=for-the-badge&logo=github)](https://github.com/Luftfartsverket/openapi-to-asciidoc/issues)
 [![License](https://img.shields.io/github/license/Luftfartsverket/openapi-to-asciidoc?style=for-the-badge&logo=opensourceinitiative)](https://opensource.org/license/mit/)
 [![Build](https://img.shields.io/github/actions/workflow/status/Luftfartsverket/openapi-to-asciidoc/build.yml?style=for-the-badge&logo=github)](https://github.com/Luftfartsverket/openapi-to-asciidoc/actions/workflows/build.yml)
