@@ -10,7 +10,7 @@ import sys
 from importlib.metadata import version
 from typing import TextIO, Union
 
-if __package__ is None:
+if __package__ is None or len(__package__) == 0:
     sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     from openapi_to_asciidoc.objects import OpenApi, OpenApiSchema
 else:
