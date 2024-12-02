@@ -25,7 +25,13 @@ pip install -U openapi-to-asciidoc
 To convert your OpenAPI Specification, type:
 
 ```bash
-$ python openapi_to_asciidoc -j <path-to-open-api-spec>.json -o <path-to-output-file>.adoc
+$ o2a -j <path-to-open-api-spec>.json -o <path-to-output-file>.adoc
+```
+
+or
+
+```bash
+$ openapi-to-asciidoc -j <path-to-open-api-spec>.json -o <path-to-output-file>.adoc
 ```
 
 This will generate an AsciiDoc from your OpenAPI Specification. 
