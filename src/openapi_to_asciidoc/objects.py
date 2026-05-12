@@ -260,6 +260,15 @@ class SchemaObject(RenderableObject):
         # super().__init__(template_name="schema_obj.j2", schema=self)
 
 
+class StringOrList(fields.Field):
+    def _deserialize(self, value, attr, data, **kwargs):
+        if isinstance(value, list):
+            # OAS 3.1: ["string", "null"] — extract the non-null type
+            non_null = [v for v in value if v != "null"]
+            return non_null[0] if non_null else None
+        return value
+
+
 class SchemaObjectSchema(SpecificationExtensions):
     title = fields.String()
     multipleOf = fields.Float()
@@ -277,7 +286,7 @@ class SchemaObjectSchema(SpecificationExtensions):
     minProperties = fields.Integer()
     required = fields.List(fields.String())
     enum = fields.List(fields.Raw())
-    type = fields.String()
+    type = StringOrList()
     allOf = fields.List(fields.Nested(lambda: SchemaObjectSchema()))
     oneOf = fields.List(fields.Nested(lambda: SchemaObjectSchema()))
     anyOf = fields.List(fields.Nested(lambda: SchemaObjectSchema()))
