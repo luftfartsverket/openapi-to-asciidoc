@@ -126,7 +126,7 @@ class ServerVariableObjectSchema(SpecificationExtensions):
     description = fields.Str()
 
     @validates("enum")
-    def validate_enum(self, value):
+    def validate_enum(self, value, **kwargs):
         if not value:
             raise ValidationError("enum cannot be empty")
 
