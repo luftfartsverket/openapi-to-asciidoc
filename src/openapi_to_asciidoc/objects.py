@@ -126,7 +126,7 @@ class ServerVariableObjectSchema(SpecificationExtensions):
     description = fields.Str()
 
     @validates("enum")
-    def validate_enum(self, value):
+    def validate_enum(self, value, **kwargs):
         if not value:
             raise ValidationError("enum cannot be empty")
 
@@ -243,7 +243,7 @@ class SchemaObject(RenderableObject):
         self.not_ = data.get("not_")
         self.items = data.get("items")
         self.properties = data.get("properties")
-        self.additionalProperties = data.get("additonalProperties")
+        self.additionalProperties = data.get("additionalProperties")
         self.description = data.get("description")
         self.format = data.get("format")
         self.default = data.get("default")
@@ -258,6 +258,15 @@ class SchemaObject(RenderableObject):
         self.ref = data.get("ref")
         self.x_variables = data.get("x_variables")
         # super().__init__(template_name="schema_obj.j2", schema=self)
+
+
+class StringOrList(fields.Field):
+    def _deserialize(self, value, attr, data, **kwargs):
+        if isinstance(value, list):
+            # OAS 3.1: ["string", "null"] — extract the non-null type
+            non_null = [v for v in value if v != "null"]
+            return non_null[0] if non_null else None
+        return value
 
 
 class SchemaObjectSchema(SpecificationExtensions):
@@ -277,7 +286,7 @@ class SchemaObjectSchema(SpecificationExtensions):
     minProperties = fields.Integer()
     required = fields.List(fields.String())
     enum = fields.List(fields.Raw())
-    type = fields.String()
+    type = StringOrList()
     allOf = fields.List(fields.Nested(lambda: SchemaObjectSchema()))
     oneOf = fields.List(fields.Nested(lambda: SchemaObjectSchema()))
     anyOf = fields.List(fields.Nested(lambda: SchemaObjectSchema()))

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # Copyright © LFV
-"""OpenAPI Specification to AsciiDoc
-"""
+"""OpenAPI Specification to AsciiDoc"""
 
 import argparse
 import json
