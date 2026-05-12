@@ -243,7 +243,7 @@ class SchemaObject(RenderableObject):
         self.not_ = data.get("not_")
         self.items = data.get("items")
         self.properties = data.get("properties")
-        self.additionalProperties = data.get("additonalProperties")
+        self.additionalProperties = data.get("additionalProperties")
         self.description = data.get("description")
         self.format = data.get("format")
         self.default = data.get("default")
