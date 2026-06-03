@@ -1,38 +1,54 @@
 {%import 'util.j2' as utils%}
+{%set depth = depth | default(0) %}
+{%set in_table = in_table | default(false) %}
+{# Active cell separator. A child at depth d is rendered inside the table its
+   parent opened at depth d-1: depth 1 -> outer '|===' (sep '|'),
+   depth 2 -> nested '!===' (sep '!'). #}
+{%set sep = "|!" if depth == 2 else "|" %}
+
+{%macro esc(value, in_table, sep)%}{%if in_table%}{{ value | escape_adoc_cell(sep) }}{%else%}{{ value }}{%endif%}{%endmacro%}
 
 {%if obj.ref%}
 ref: {{utils.format_ref(obj.ref)}}
 {%endif%}
 
 {%if obj.type%}
-type: {{obj.type}}
+type: {{esc(obj.type, in_table, sep)}}
 {%endif%}
 
 {%if obj.format%}
-format: {{obj.format}}
+format: {{esc(obj.format, in_table, sep)}}
+{%endif%}
+
+{%if obj.pattern%}
+pattern: {{esc(obj.pattern, in_table, sep)}}
 {%endif%}
 
 {%if obj.default%}
-default: {{obj.default}}
+default: {{esc(obj.default, in_table, sep)}}
+{%endif%}
+
+{%if obj.enum%}
+enum: {{esc(obj.enum, in_table, sep)}}
 {%endif%}
 
 {%if obj.description%}
-description: {{obj.description}}
+description: {{esc(obj.description, in_table, sep)}}
 {%endif%}
 
 {%if obj.required%}
-Required: {{obj.required}}
+Required: {{esc(obj.required, in_table, sep)}}
 {%endif%}
 
 {%if obj.items%}
 
-{{utils.set_temp(obj, obj.items, "schema_obj.j2")}}
+{{utils.set_temp(obj, obj.items, "schema_obj.j2", depth, in_table)}}
 
 {%endif%}
 
 {%if obj.not_%}
 
-{{utils.set_temp(obj, obj.not_, "schema_obj.j2")}}
+{{utils.set_temp(obj, obj.not_, "schema_obj.j2", depth, in_table)}}
 
 {%endif%}
 
@@ -65,19 +81,48 @@ allOf:
 {%endif%}
 
 {%if obj.properties%}
+{# AsciiDoc supports one level of table nesting: |=== (sep '|') then !=== (sep '!').
+   depth 0 -> outer table, depth 1 -> one nested table.
+   At depth >= 2 we do NOT open a third table (AsciiDoc can't), and we also do not
+   recurse further inside a cell; deeper objects just show their type/description
+   inline. Real specs rarely nest objects this deep. #}
+{%if depth == 0 %}
 _Schema properties_
 
 |===
 |Property|Type
 {%for obj_name, obj in obj.properties.items()%}
-|*{{obj_name}}*|
+|*{{obj_name|escape_adoc_cell("|")}}*
+{%set depth = 1 %}
+{%set in_table = true %}
+a|
 {%include 'schema_obj.j2'%}
+{%set depth = 0 %}
 {%endfor%}
 |===
+{%elif depth == 1 %}
+_Schema properties_
+
+!===
+!Property!Type
+{%for obj_name, obj in obj.properties.items()%}
+!*{{obj_name|escape_adoc_cell("|!")}}*
+{%set depth = 2 %}
+{%set in_table = true %}
+a!
+{%include 'schema_obj.j2'%}
+{%set depth = 1 %}
+{%endfor%}
+!===
+{%else%}
+{# depth >= 2: cannot open a third table and cannot safely place block content
+   inside a !=== cell. List deeper properties inline so nothing is dropped. #}
+_Schema properties:_ {% for obj_name, obj in obj.properties.items() %}`{{obj_name|escape_adoc_cell(sep)}}`{% if not loop.last %}, {% endif %}{% endfor %}
+{%endif%}
 {%endif%}
 
 {%if obj.additionalProperties%}
-{{utils.set_temp(obj, obj.additionalProperties, "schema_obj.j2")}}
+{{utils.set_temp(obj, obj.additionalProperties, "schema_obj.j2", depth, in_table)}}
 {%endif%}
 
 {%if obj.externalDocs%}
